@@ -1,0 +1,20 @@
+{
+  "name": "PIBVV",
+  "version": "1.0.0",
+  "description": "backend para o aplicativo da viagem missionaria",
+  "main": "index.js",
+  "repository": "git@github.com-personal:PatrickChagastavares/PIB_APP_backend.git",
+  "author": "Patrick Chagas Tavares",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/server.js",
+    "start:debug": "nodemon --inspect src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "sucrase": "^3.12.1"
+  }
+}
