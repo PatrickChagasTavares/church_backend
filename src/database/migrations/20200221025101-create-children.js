@@ -4,13 +4,13 @@ module.exports = {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        autoImcrement: true,
+        autoIncrement: true,
         primaryKey: true,
       },
       date: { type: Sequelize.DATE, allowNull: false },
       total: { type: Sequelize.INTEGER, allowNull: false },
       note: { type: Sequelize.STRING },
-      create_at: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
