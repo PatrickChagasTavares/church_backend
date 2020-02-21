@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('social', {
+    return queryInterface.createTable('socials', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -11,11 +11,7 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      nameTribe: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      namePerson: {
+      name_person: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -40,19 +36,19 @@ module.exports = {
       contact: {
         type: Sequelize.STRING(20),
       },
-      frequentsChurch: {
+      frequents_church: {
         type: Sequelize.STRING(20),
       },
-      cultHome: {
+      cult_home: {
         type: Sequelize.STRING(20),
       },
-      studyBible: {
+      study_bible: {
         type: Sequelize.STRING(20),
       },
-      studyConfimation: {
+      study_confimation: {
         type: Sequelize.STRING(20),
       },
-      prayerRequest: {
+      prayer_request: {
         type: Sequelize.STRING(20),
       },
       reconciled: {
@@ -61,7 +57,7 @@ module.exports = {
       visit: {
         type: Sequelize.STRING(20),
       },
-      acceptChrist: {
+      accept_christ: {
         type: Sequelize.STRING(20),
       },
       medical: {
@@ -79,7 +75,7 @@ module.exports = {
       aesthetics: {
         type: Sequelize.STRING(20),
       },
-      cuttingHair: {
+      cutting_hair: {
         type: Sequelize.STRING(20),
       },
       hairstyle: {
@@ -106,6 +102,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('social');
+    return queryInterface.dropTable('socials');
   },
 };

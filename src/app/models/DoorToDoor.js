@@ -1,26 +1,26 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Social extends Model {
+class DoorToDoor extends Model {
   static init(sequelize) {
     super.init(
       {
         date: Sequelize.DATE,
-        nameTribe: Sequelize.STRING,
-        namePerson: Sequelize.STRING,
+        name_tribe: Sequelize.STRING,
+        name_person: Sequelize.STRING,
         address: Sequelize.STRING,
         type: Sequelize.STRING,
         age: Sequelize.STRING,
         bible: Sequelize.STRING,
         evangelical: Sequelize.STRING,
         contact: Sequelize.STRING,
-        frequentsChurch: Sequelize.STRING,
-        cultHome: Sequelize.STRING,
-        studyBible: Sequelize.STRING,
-        studyConfimation: Sequelize.STRING,
-        prayerRequest: Sequelize.STRING,
+        frequents_church: Sequelize.STRING,
+        cult_home: Sequelize.STRING,
+        study_bible: Sequelize.STRING,
+        study_confimation: Sequelize.STRING,
+        prayer_request: Sequelize.STRING,
         reconciled: Sequelize.STRING,
         visit: Sequelize.STRING,
-        acceptChrist: Sequelize.STRING,
+        accept_christ: Sequelize.STRING,
         note: Sequelize.STRING,
       },
       { sequelize }
@@ -30,4 +30,4 @@ class Social extends Model {
   }
 }
 
-export default Social;
+export default DoorToDoor;

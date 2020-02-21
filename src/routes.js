@@ -1,18 +1,9 @@
 import { Router } from 'express';
-import Children from './app/models/Children';
+
+import ViagemController from './app/controllers/ViagemController';
 
 const routes = new Router();
 
-routes.get('/', async (req, res) => {
-  const children = Children.create({
-    date: '2020-02-20',
-    total: 22,
-    note: 'Tudo funcionando',
-    create_at: new Date(),
-    updated_at: new Date(),
-  });
-
-  return res.json(children);
-});
+routes.post('/viagemMissionaria', ViagemController.store);
 
 export default routes;
