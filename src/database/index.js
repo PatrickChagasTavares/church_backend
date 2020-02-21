@@ -1,10 +1,12 @@
 import Sequelize from 'sequelize';
 
 import Children from '../app/models/Children';
+import Social from '../app/models/Social';
+import DoorToDoor from '../app/models/DoorToDoor';
 
 import databseConfig from '../config/database';
 
-const models = [Children];
+const models = [Children, Social, DoorToDoor];
 
 class Database {
   constructor() {
