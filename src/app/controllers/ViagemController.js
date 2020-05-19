@@ -48,6 +48,7 @@ class ViagemController {
           return DoorToDoorController.store(formtData);
         });
       }
+
       if (Social && Social.length > 0) {
         await Social.map(item => {
           status.Social = true;
@@ -74,7 +75,7 @@ class ViagemController {
             pressure: item.pressure,
             glucose: item.glucose,
             aesthetics: item.aesthetics,
-            cutting_hair: item.cutting_hair,
+            cutting_hair: item.cuttingHair,
             hairstyle: item.hairstyle,
             Nail: item.Nail,
             Eyebrow: item.Eyebrow,
