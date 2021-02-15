@@ -1,0 +1,18 @@
+{
+  "env": "",
+  "docs": {
+    "key": ""
+  },
+  "PrivateTokenStatic": "",
+  "server": {
+    "port": ""
+  },
+  "database": {
+    "writer": {
+      "url": ""
+    },
+    "reader": {
+      "url": ""
+    }
+  }
+}
