@@ -29,7 +29,7 @@ type storeImpl struct {
 func (r *storeImpl) Ping(ctx context.Context) do.ChanResult {
 	return do.Do(func(res *do.Result) {
 		_, err := r.reader.DB()
-		if err == nil {
+		if err != nil {
 			logger.ErrorContext(ctx, "store.health.ping", err)
 			res.Error = model.NewError(http.StatusInternalServerError, err.Error(), nil)
 			return

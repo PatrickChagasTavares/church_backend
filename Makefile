@@ -1,3 +1,5 @@
+.PHONY: run run-watch docker-up docker-down docs
+
 # Styles
 red=\033[31m
 green=\033[32m

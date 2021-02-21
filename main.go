@@ -16,6 +16,11 @@ import (
 	logger "github.com/sirupsen/logrus"
 )
 
+// main configure swagger
+// method of use bearer token in requests
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 
 	config.Watch(func(c config.Config) {
@@ -33,6 +38,7 @@ func main() {
 		if errReader != nil {
 			logger.Fatal("Error ao se conectar com o database de leitura", errReader)
 		}
+
 		dbWriter, errWriter := gorm.Open(mysql.Open(c.GetString("database.writer.url")), &gorm.Config{})
 		if errWriter != nil {
 			logger.Fatal("Error ao se conectar com o database de leitura", errReader)

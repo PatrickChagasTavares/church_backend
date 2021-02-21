@@ -1,4 +1,146 @@
+definitions:
+  model.Child:
+    properties:
+      CreatedAt:
+        type: integer
+      Date:
+        type: integer
+      DeletedAt:
+        type: integer
+      Id:
+        type: integer
+      Notes:
+        type: string
+      Total:
+        type: integer
+      UpdatedAt:
+        type: integer
+    required:
+    - Date
+    - Total
+    type: object
+  model.Error:
+    properties:
+      detail:
+        type: object
+      message:
+        type: string
+    type: object
+  model.Health:
+    properties:
+      database_status:
+        type: string
+      server_started_at:
+        type: string
+      version:
+        type: string
+    type: object
+  model.Response:
+    type: object
 info:
   contact: {}
-paths: {}
+  license: {}
+paths:
+  /v1/children/create:
+    post:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Child'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  allOf:
+                  - $ref: '#/definitions/model.Error'
+                  - properties:
+                      message:
+                        type: string
+                    type: object
+              type: object
+      tags:
+      - children
+  /v1/health:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Health'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      tags:
+      - health
+  /v1/health/check:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Health'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      tags:
+      - health
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

@@ -1,0 +1,65 @@
+table - children
+
+id: int auto increment
+date: timestamp(int64) not null
+total: int not null
+note:  text
+created_at: timestamp(int64) not null
+updated_at: timestamp(int64) not null
+deleted_at: timestamp(int64) not null
+
+table - door_to_doors
+
+id: int auto increment
+date: timestamp(int64) not null
+name_tribe: string not null
+name_person: string not null
+address: string not null
+age: string not null
+bible: boolean
+evangelical: boolean
+contact: boolean
+frequents_church: boolean
+cult_home: boolean
+study_bible: boolean
+study_confimation: boolean
+prayer_request: boolean
+reconciled: boolean
+visit: boolean
+accept_christ: boolean
+note: text
+created_at: timestamp(int64) not null
+updated_at: timestamp(int64) not null
+deleted_at: timestamp(int64) not null
+
+table - socials
+
+id: int auto increment
+date: timestamp(int64) not null
+name_person: string not null
+address: string not null
+age: string not null
+bible: boolean
+evangelical: boolean
+contact: boolean
+frequents_church: boolean
+cult_home: boolean
+study_bible: boolean
+study_confimation: boolean
+prayer_request: boolean
+reconciled: boolean
+visit: boolean
+accept_christ: boolean
+medical: boolean
+optician: boolean
+pressure: boolean
+glucose: boolean
+aesthetics: boolean
+cutting_hair: boolean
+hairstyle: boolean
+Nail: boolean
+Eyebrow: boolean
+note: text
+created_at: timestamp(int64) not null
+updated_at: timestamp(int64) not null
+deleted_at: timestamp(int64) not null
