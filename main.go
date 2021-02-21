@@ -7,10 +7,10 @@ import (
 	"github.com/PatrickChagastavares/church_backend/app"
 	"github.com/PatrickChagastavares/church_backend/config"
 	"github.com/PatrickChagastavares/church_backend/model"
+	"github.com/PatrickChagastavares/church_backend/utils/logger"
 
 	"github.com/labstack/echo/v4"
 	emiddleware "github.com/labstack/echo/v4/middleware"
-	logger "github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -53,7 +53,7 @@ func main() {
 			}
 
 			if err := c.JSON(model.GetHTTPCode(err), model.Response{Err: err}); err != nil {
-				logger.WithContext(c.Request().Context()).Info(err)
+				logger.ErrorContext(c.Request().Context(), err)
 			}
 		}
 

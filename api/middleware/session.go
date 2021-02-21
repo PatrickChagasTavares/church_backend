@@ -18,14 +18,12 @@ type SessionMiddleware interface {
 // newSessionMiddleware cria uma implementação da interface SessionMiddleware
 func newSessionMiddleware(opts Options) SessionMiddleware {
 	return &middlewareSessionImpl{
-		apps:               opts.Apps,
-		PrivateTokenStatic: opts.PrivateTokenStatic,
+		apps: opts.Apps,
 	}
 }
 
 type middlewareSessionImpl struct {
-	apps               *app.Container
-	PrivateTokenStatic string
+	apps *app.Container
 }
 
 func (m *middlewareSessionImpl) InjectSession(next echo.HandlerFunc) echo.HandlerFunc {
@@ -36,12 +34,6 @@ func (m *middlewareSessionImpl) InjectSession(next echo.HandlerFunc) echo.Handle
 			splitedToken := strings.Split(authorization, " ")
 			if len(splitedToken) != 2 {
 				return model.NewError(http.StatusUnauthorized, "não foi possível decodificar o token", map[string]string{
-					"authorization": authorization,
-				})
-			}
-
-			if splitedToken[1] != m.PrivateTokenStatic {
-				return model.NewError(http.StatusUnauthorized, "Token informado é invalido", map[string]string{
 					"authorization": authorization,
 				})
 			}

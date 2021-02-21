@@ -3,7 +3,10 @@ module github.com/PatrickChagastavares/church_backend
 go 1.15
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
+	github.com/golang/mock v1.3.1
+	github.com/jmoiron/sqlx v1.3.1
 	github.com/labstack/echo/v4 v4.2.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/viper v1.7.1

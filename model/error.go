@@ -33,12 +33,3 @@ func GetHTTPCode(err error) int {
 	}
 	return e.HTTPCode
 }
-
-// // NewError cria um novo struct erro
-// func NewError(httpCode int, message string, detail interface{}) *Error {
-// 	return &Error{
-// 		HTTPCode: httpCode,
-// 		Message:  message,
-// 		Detail:   detail,
-// 	}
-// }

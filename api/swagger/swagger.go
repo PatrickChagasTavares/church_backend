@@ -7,7 +7,7 @@ import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 
 	docs "github.com/PatrickChagastavares/church_backend/docs"
-	logger "github.com/sirupsen/logrus"
+	"github.com/PatrickChagastavares/church_backend/utils/logger"
 )
 
 // Options struct de opções para a criação de uma instancia do swagger
