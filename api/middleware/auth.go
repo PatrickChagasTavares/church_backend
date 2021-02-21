@@ -46,13 +46,21 @@ func (m *middlewareAuthImpl) validateSession(c echo.Context, logged bool) error 
 	if logged {
 		authorization := c.Request().Header.Get("Authorization")
 
-		splitedToken := strings.Split(authorization, " ")
+		if authorization != "" {
+			splitedToken := strings.Split(authorization, " ")
 
-		if splitedToken[1] != m.PrivateTokenStatic {
-			return model.NewError(http.StatusUnauthorized, "Token informado é invalido", map[string]string{
-				"authorization": authorization,
-			})
+			if strings.ToLower(splitedToken[0]) != "basic" && splitedToken[1] != m.PrivateTokenStatic {
+				return model.NewError(http.StatusUnauthorized, "Token informado é invalido", map[string]string{
+					"authorization": authorization,
+				})
+			}
+			return nil
 		}
+
+		return model.NewError(http.StatusUnauthorized, "Token não foi informado", map[string]string{
+			"authorization": authorization,
+		})
+
 	}
 
 	return nil

@@ -7,6 +7,7 @@ require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/go-openapi/spec v0.20.3 // indirect
+	github.com/go-playground/validator/v10 v10.4.1
 	github.com/golang/mock v1.5.0
 	github.com/google/go-cmp v0.5.4 // indirect
 	github.com/labstack/echo/v4 v4.2.0

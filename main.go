@@ -8,6 +8,7 @@ import (
 	"github.com/PatrickChagastavares/church_backend/config"
 	"github.com/PatrickChagastavares/church_backend/model"
 	"github.com/PatrickChagastavares/church_backend/store"
+	"github.com/PatrickChagastavares/church_backend/utils/validator"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
@@ -25,6 +26,7 @@ func main() {
 
 	config.Watch(func(c config.Config) {
 		e := echo.New()
+		e.Validator = validator.New()
 		e.Debug = c.GetString("env") != "prod"
 		e.HideBanner = true
 
@@ -43,6 +45,8 @@ func main() {
 		if errWriter != nil {
 			logger.Fatal("Error ao se conectar com o database de leitura", errReader)
 		}
+
+		dbWriter.Migrator().AutoMigrate(&model.Child{})
 
 		// criação dos stores com a injeção do banco de escrita e leitura
 		stores := store.New(store.Options{
