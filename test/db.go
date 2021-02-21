@@ -2,13 +2,17 @@ package test
 
 import (
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/jmoiron/sqlx"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 // GetDB retorna uma instancia do db mocado
-func GetDB() (*sqlx.DB, sqlmock.Sqlmock) {
+func GetDB() (*gorm.DB, sqlmock.Sqlmock) {
 	db, mock, _ := sqlmock.New(sqlmock.MonitorPingsOption(true))
-	return sqlx.NewDb(db, "mysql"), mock
+	gormDB, _ := gorm.Open(mysql.New(mysql.Config{
+		Conn: db,
+	}), &gorm.Config{})
+	return gormDB, mock
 }
 
 // NewRows retorna um modelo para adicionar rows

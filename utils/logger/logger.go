@@ -8,23 +8,9 @@ import (
 )
 
 func init() {
+	// log.SetFormatter(&log.JSONFormatter{})
 	log.SetOutput(os.Stdout)
-	log.SetFormatter(&log.JSONFormatter{})
 	log.SetLevel(log.InfoLevel)
-}
-
-// SetLevel altera o level do logger
-func SetLevel(level string) {
-	lvl, err := log.ParseLevel(level)
-	if err != nil {
-		lvl = log.InfoLevel
-	}
-	log.SetLevel(lvl)
-}
-
-// GetLevel recupera o level do logger
-func GetLevel() log.Level {
-	return log.GetLevel()
 }
 
 // Error exibe detalhes do erro
@@ -45,26 +31,6 @@ func Info(args ...interface{}) {
 // InfoContext exibe detalhes do log info com o contexto
 func InfoContext(ctx context.Context, args ...interface{}) {
 	log.WithContext(ctx).Info(args...)
-}
-
-// Debug exibe detalhes do log debug
-func Debug(args ...interface{}) {
-	log.Debug(args...)
-}
-
-// DebugContext exibe detalhes do log debug com o contexto
-func DebugContext(ctx context.Context, args ...interface{}) {
-	log.WithContext(ctx).Debug(args...)
-}
-
-// Trace exibe detalhes do log trace
-func Trace(args ...interface{}) {
-	log.Trace(args...)
-}
-
-// TraceContext exibe detalhes do log trace com o contexto
-func TraceContext(ctx context.Context, args ...interface{}) {
-	log.WithContext(ctx).Trace(args...)
 }
 
 // Fatal exibe detalhes do erro
