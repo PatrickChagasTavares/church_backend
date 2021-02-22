@@ -46,6 +46,13 @@ paths:
       consumes:
       - application/json
       description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: child
+        in: body
+        name: child
+        required: true
+        schema:
+          $ref: '#/definitions/model.Child'
       produces:
       - application/json
       responses:
@@ -81,6 +88,105 @@ paths:
                         type: string
                     type: object
               type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - children
+  /v1/children/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: teste lalala
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Child'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - children
+  /v1/children/list:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Child'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
       tags:
       - children
   /v1/health:
@@ -109,6 +215,17 @@ paths:
                 error:
                   $ref: '#/definitions/model.Error'
               type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
       tags:
       - health
   /v1/health/check:
@@ -136,6 +253,17 @@ paths:
                 error:
                   $ref: '#/definitions/model.Error'
               type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
       tags:
       - health
 securityDefinitions:

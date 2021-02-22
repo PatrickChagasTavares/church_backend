@@ -31,8 +31,10 @@ type handler struct {
 // @Tags health
 // @Accept  json
 // @Produce  json
+// @Security ApiKeyAuth
 // @Success 200 {object} model.Response{data=model.Health}
 // @Failure 400 {object} model.Response{error=model.Error}
+// @Failure 500 {object} model.Response{error=model.Error}
 // @Router /v1/health [get]
 func (h *handler) ping(c echo.Context) error {
 	ctx := c.Request().Context()
@@ -51,8 +53,10 @@ func (h *handler) ping(c echo.Context) error {
 // @Tags health
 // @Accept  json
 // @Produce  json
+// @Security ApiKeyAuth
 // @Success 200 {object} model.Response{data=model.Health}
 // @Failure 400 {object} model.Response{error=model.Error}
+// @Failure 500 {object} model.Response{error=model.Error}
 // @Router /v1/health/check [get]
 func (h *handler) check(c echo.Context) error {
 	ctx := c.Request().Context()
