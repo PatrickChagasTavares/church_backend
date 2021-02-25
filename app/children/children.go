@@ -28,54 +28,36 @@ type appImpl struct {
 
 func (s *appImpl) AddChildren(ctx context.Context, child model.Child) (*model.Child, error) {
 
-	result := <-s.stores.Children.AddChild(ctx, child)
-	if result.Error != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.AddChildren", result.Error.Error())
+	resp, respErr := s.stores.Children.AddChild(ctx, child)
+	if respErr != nil {
+		logrus.WithContext(ctx).Error(ctx, "app.children.AddChildren", respErr.Error())
 
-		return nil, result.Error
+		return nil, respErr
 	}
 
-	data, err := model.ToChild(result.Data)
-	if err != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.tohealth", err.Error())
-		return nil, err
-	}
-
-	return data, nil
+	return resp, nil
 }
 
 func (s *appImpl) GetChild(ctx context.Context, ID int) (*model.Child, error) {
 
-	result := <-s.stores.Children.GetChild(ctx, ID)
-	if result.Error != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.getchild", result.Error.Error())
+	resp, respErr := s.stores.Children.GetChild(ctx, ID)
+	if respErr != nil {
+		logrus.WithContext(ctx).Error(ctx, "app.children.getchild", respErr.Error())
 
-		return nil, result.Error
+		return nil, respErr
 	}
 
-	data, err := model.ToChild(result.Data)
-	if err != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.tochild", err.Error())
-		return nil, err
-	}
-
-	return data, nil
+	return resp, nil
 }
 
 func (s *appImpl) ListChild(ctx context.Context, page, limit int) ([]*model.Child, error) {
 
-	result := <-s.stores.Children.ListChild(ctx, limit, page)
-	if result.Error != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.addchildren", result.Error.Error())
+	resp, respErr := s.stores.Children.ListChild(ctx, limit, page)
+	if respErr != nil {
+		logrus.WithContext(ctx).Error(ctx, "app.children.addchildren", respErr.Error())
 
-		return nil, result.Error
+		return nil, respErr
 	}
 
-	data, err := model.ToChildren(result.Data)
-	if err != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.tochildren", err.Error())
-		return nil, err
-	}
-
-	return data, nil
+	return resp, nil
 }

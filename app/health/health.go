@@ -26,37 +26,23 @@ type appImpl struct {
 }
 
 func (s *appImpl) Ping(ctx context.Context) (*model.Health, error) {
-	result := <-s.stores.Health.Ping(ctx)
-	if result.Error != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.health.ping", result.Error.Error())
+	resp, respErr := s.stores.Health.Ping(ctx)
+	if respErr != nil {
+		logrus.WithContext(ctx).Error(ctx, "app.health.ping", respErr.Error())
 
-		return nil, result.Error
+		return nil, respErr
 	}
 
-	data, err := model.ToHealth(result.Data)
-	if err != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.health.ping", err.Error())
-
-		return nil, err
-	}
-
-	return data, nil
+	return resp, nil
 }
 
 func (s *appImpl) Check(ctx context.Context) (*model.Health, error) {
-	result := <-s.stores.Health.Check(ctx)
-	if result.Error != nil {
-		logrus.WithContext(ctx).Error("app.health.check", result.Error.Error())
+	resp, respErr := s.stores.Health.Check(ctx)
+	if respErr != nil {
+		logrus.WithContext(ctx).Error("app.health.check", respErr.Error())
 
-		return nil, result.Error
+		return nil, respErr
 	}
 
-	data, err := model.ToHealth(result.Data)
-	if err != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.health.check", err.Error())
-
-		return nil, err
-	}
-
-	return data, nil
+	return resp, nil
 }
