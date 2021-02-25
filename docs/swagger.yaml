@@ -1,4 +1,657 @@
+definitions:
+  model.Child:
+    properties:
+      Date:
+        type: integer
+      Notes:
+        type: string
+      Total:
+        type: integer
+    required:
+    - Date
+    - Total
+    type: object
+  model.DoorToDoors:
+    properties:
+      AcceptChrist:
+        type: boolean
+      AcceptVisit:
+        type: boolean
+      Address:
+        type: string
+      Age:
+        type: string
+      Bible:
+        type: boolean
+      Contact:
+        type: boolean
+      CultHome:
+        type: boolean
+      Date:
+        type: integer
+      Evangelical:
+        type: boolean
+      FrequentsChurch:
+        type: boolean
+      NameTribe:
+        type: string
+      Notes:
+        type: string
+      PrayerRequest:
+        type: boolean
+      Reconciled:
+        type: boolean
+      StudyBible:
+        type: boolean
+      StudyConfimation:
+        type: boolean
+    required:
+    - Address
+    - Age
+    - Date
+    - NameTribe
+    type: object
+  model.Error:
+    properties:
+      detail:
+        type: object
+      message:
+        type: string
+    type: object
+  model.Health:
+    properties:
+      database_status:
+        type: string
+    type: object
+  model.Response:
+    type: object
+  model.Social:
+    properties:
+      AcceptChrist:
+        type: boolean
+      AcceptVisit:
+        type: boolean
+      Address:
+        type: string
+      Aesthetics:
+        type: boolean
+      Age:
+        type: string
+      Bible:
+        type: boolean
+      Contact:
+        type: boolean
+      CultHome:
+        type: boolean
+      CuttingHair:
+        type: boolean
+      Date:
+        type: integer
+      Evangelical:
+        type: boolean
+      Eyebrow:
+        type: boolean
+      FrequentsChurch:
+        type: boolean
+      Glucose:
+        type: boolean
+      Hairstyle:
+        type: boolean
+      Medical:
+        type: boolean
+      Nail:
+        type: boolean
+      NameTribe:
+        type: string
+      Notes:
+        type: string
+      Optician:
+        type: boolean
+      PrayerRequest:
+        type: boolean
+      Pressure:
+        type: boolean
+      Reconciled:
+        type: boolean
+      StudyBible:
+        type: boolean
+      StudyConfimation:
+        type: boolean
+    required:
+    - Address
+    - Age
+    - Date
+    - NameTribe
+    type: object
 info:
   contact: {}
-paths: {}
+  license: {}
+paths:
+  /v1/children/create:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Essa rota é privada com o token valido (Bearer)
+        Os campos Date e Total são obrigatorios
+      parameters:
+      - description: child
+        in: body
+        name: child
+        required: true
+        schema:
+          $ref: '#/definitions/model.Child'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Child'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  allOf:
+                  - $ref: '#/definitions/model.Error'
+                  - properties:
+                      message:
+                        type: string
+                    type: object
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Children
+  /v1/children/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: teste lalala
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Child'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Children
+  /v1/children/list:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Child'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Children
+  /v1/doortodoors/create:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Essa rota é privada com o token valido (Bearer)
+        Os campos Date, NameTribe, Address e Age são obrigatorios
+      parameters:
+      - description: DoorToDoors
+        in: body
+        name: door
+        required: true
+        schema:
+          $ref: '#/definitions/model.DoorToDoors'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.DoorToDoors'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  allOf:
+                  - $ref: '#/definitions/model.Error'
+                  - properties:
+                      message:
+                        type: string
+                    type: object
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - DoorToDoors
+  /v1/doortodoors/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.DoorToDoors'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - DoorToDoors
+  /v1/doortodoors/list:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.DoorToDoors'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - DoorToDoors
+  /v1/health:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Health'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - health
+  /v1/health/check:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Health'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - health
+  /v1/social/create:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Essa rota é privada com o token valido (Bearer)
+        Os campos Date, NameTribe, Address e Age são obrigatorios
+      parameters:
+      - description: Social
+        in: body
+        name: social
+        required: true
+        schema:
+          $ref: '#/definitions/model.Social'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Social'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Social
+  /v1/social/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Social'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Social
+  /v1/social/list:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Social'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Social
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

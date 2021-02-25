@@ -1,7 +1,12 @@
 {
   "env": "",
   "docs": {
-    "key": ""
+    "key": "",
+    "title": "",
+    "description": "",
+    "version": "",
+    "host": "",
+    "base-path":""
   },
   "PrivateTokenStatic": "",
   "server": {

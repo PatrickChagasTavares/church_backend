@@ -8,8 +8,8 @@ import (
 // Error tipo de erro customizado
 type Error struct {
 	HTTPCode int         `json:"-"`
-	Message  string      `json:"message"`
-	Detail   interface{} `json:"detail,omitempty"`
+	Message  string      `json:"message" swaggerignore:"true`
+	Detail   interface{} `json:"detail,omitempty" swaggerignore:"true`
 }
 
 func (e *Error) Error() string {
@@ -33,12 +33,3 @@ func GetHTTPCode(err error) int {
 	}
 	return e.HTTPCode
 }
-
-// // NewError cria um novo struct erro
-// func NewError(httpCode int, message string, detail interface{}) *Error {
-// 	return &Error{
-// 		HTTPCode: httpCode,
-// 		Message:  message,
-// 		Detail:   detail,
-// 	}
-// }

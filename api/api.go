@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/PatrickChagastavares/church_backend/api/middleware"
+	v1 "github.com/PatrickChagastavares/church_backend/api/v1"
 	"github.com/PatrickChagastavares/church_backend/app"
 	"github.com/labstack/echo/v4"
 	logger "github.com/sirupsen/logrus"
@@ -16,7 +17,7 @@ type Options struct {
 
 // Register register routes
 func Register(opts Options) {
-	// v1.Register(opts.Group, opts.Apps, opts.Middleware)
+	v1.Register(opts.Group, opts.Apps, opts.Middleware)
 
 	logger.Info("Initialized -> Api")
 

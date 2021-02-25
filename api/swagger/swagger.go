@@ -7,24 +7,28 @@ import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 
 	docs "github.com/PatrickChagastavares/church_backend/docs"
-	logger "github.com/sirupsen/logrus"
+	"github.com/PatrickChagastavares/church_backend/utils/logger"
 )
 
 // Options struct de opções para a criação de uma instancia do swagger
 type Options struct {
-	Group     *echo.Group
-	AccessKey string
-	Port      string
+	Group       *echo.Group
+	AccessKey   string
+	Title       string
+	Description string
+	Version     string
+	Host        string
+	BasePath    string
 }
 
 // Register group item check
 func Register(opts Options) {
 
-	docs.SwaggerInfo.Title = "Swagger {Nome do projeto} API"
-	docs.SwaggerInfo.Description = "Swagger com as rotas e modelos de uso de parâmetros da API do {Nome do Projeto}"
-	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost" + opts.Port // Host of application
-	docs.SwaggerInfo.BasePath = "/v1"
+	docs.SwaggerInfo.Title = opts.Title
+	docs.SwaggerInfo.Description = opts.Description
+	docs.SwaggerInfo.Version = opts.Version
+	docs.SwaggerInfo.Host = opts.Host
+	docs.SwaggerInfo.BasePath = opts.BasePath
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	opts.Group.GET("/:key", func(c echo.Context) error {
