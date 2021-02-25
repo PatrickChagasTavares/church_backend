@@ -39,11 +39,10 @@ func (r *storeImpl) Ping(ctx context.Context) (*model.Health, error) {
 func (r *storeImpl) Check(ctx context.Context) (*model.Health, error) {
 	data := new(model.Health)
 
-	query := r.reader.WithContext(ctx).Raw(`SELECT 'DB OK' AS database_status`).Row()
-	err := query.Scan(data)
-	if err != nil {
-		logger.ErrorContext(ctx, "store.health.check", err.Error())
-		return nil, model.NewError(http.StatusInternalServerError, err.Error(), nil)
+	err := r.reader.WithContext(ctx).Raw(`SELECT 'DB OK' AS database_status`).Scan(&data)
+	if err.Error != nil {
+		logger.ErrorContext(ctx, "store.health.check", err.Error.Error())
+		return nil, model.NewError(http.StatusInternalServerError, err.Error.Error(), nil)
 	}
 
 	return data, nil

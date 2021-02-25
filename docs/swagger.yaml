@@ -1,23 +1,55 @@
 definitions:
   model.Child:
     properties:
-      CreatedAt:
-        type: integer
       Date:
-        type: integer
-      DeletedAt:
-        type: integer
-      Id:
         type: integer
       Notes:
         type: string
       Total:
         type: integer
-      UpdatedAt:
-        type: integer
     required:
     - Date
     - Total
+    type: object
+  model.DoorToDoors:
+    properties:
+      AcceptChrist:
+        type: boolean
+      AcceptVisit:
+        type: boolean
+      Address:
+        type: string
+      Age:
+        type: string
+      Bible:
+        type: boolean
+      Contact:
+        type: boolean
+      CultHome:
+        type: boolean
+      Date:
+        type: integer
+      Evangelical:
+        type: boolean
+      FrequentsChurch:
+        type: boolean
+      NameTribe:
+        type: string
+      Notes:
+        type: string
+      PrayerRequest:
+        type: boolean
+      Reconciled:
+        type: boolean
+      StudyBible:
+        type: boolean
+      StudyConfimation:
+        type: boolean
+    required:
+    - Address
+    - Age
+    - Date
+    - NameTribe
     type: object
   model.Error:
     properties:
@@ -30,10 +62,6 @@ definitions:
     properties:
       database_status:
         type: string
-      server_started_at:
-        type: string
-      version:
-        type: string
     type: object
   model.Response:
     type: object
@@ -45,7 +73,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Essa rota é privada com o token valido (Bearer)
+      description: |-
+        Essa rota é privada com o token valido (Bearer)
+        Os campos Date e Total são obrigatorios
       parameters:
       - description: child
         in: body
@@ -189,6 +219,156 @@ paths:
       - ApiKeyAuth: []
       tags:
       - children
+  /v1/doortodoors/create:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Essa rota é privada com o token valido (Bearer)
+        Os campos Date, NameTribe, Address e Age são obrigatorios
+      parameters:
+      - description: DoorToDoors
+        in: body
+        name: door
+        required: true
+        schema:
+          $ref: '#/definitions/model.DoorToDoors'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.DoorToDoors'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  allOf:
+                  - $ref: '#/definitions/model.Error'
+                  - properties:
+                      message:
+                        type: string
+                    type: object
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - DoorToDoors
+  /v1/doortodoors/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.DoorToDoors'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - DoorToDoors
+  /v1/doortodoors/list:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.DoorToDoors'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - DoorToDoors
   /v1/health:
     get:
       consumes:

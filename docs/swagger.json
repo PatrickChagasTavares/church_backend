@@ -12,7 +12,7 @@
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Essa rota é privada com o token valido (Bearer)",
+                "description": "Essa rota é privada com o token valido (Bearer)\nOs campos Date e Total são obrigatorios",
                 "consumes": [
                     "application/json"
                 ],
@@ -281,6 +281,282 @@
                 }
             }
         },
+        "/v1/doortodoors/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Essa rota é privada com o token valido (Bearer)\nOs campos Date, NameTribe, Address e Age são obrigatorios",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DoorToDoors"
+                ],
+                "parameters": [
+                    {
+                        "description": "DoorToDoors",
+                        "name": "door",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.DoorToDoors"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.DoorToDoors"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/model.Error"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "message": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/doortodoors/get/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Essa rota é privada com o token valido (Bearer)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DoorToDoors"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.DoorToDoors"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/doortodoors/list": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Essa rota é privada com o token valido (Bearer)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DoorToDoors"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.DoorToDoors"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/v1/health": {
             "get": {
                 "security": [
@@ -439,16 +715,7 @@
                 "Total"
             ],
             "properties": {
-                "CreatedAt": {
-                    "type": "integer"
-                },
                 "Date": {
-                    "type": "integer"
-                },
-                "DeletedAt": {
-                    "type": "integer"
-                },
-                "Id": {
                     "type": "integer"
                 },
                 "Notes": {
@@ -456,9 +723,65 @@
                 },
                 "Total": {
                     "type": "integer"
+                }
+            }
+        },
+        "model.DoorToDoors": {
+            "type": "object",
+            "required": [
+                "Address",
+                "Age",
+                "Date",
+                "NameTribe"
+            ],
+            "properties": {
+                "AcceptChrist": {
+                    "type": "boolean"
                 },
-                "UpdatedAt": {
+                "AcceptVisit": {
+                    "type": "boolean"
+                },
+                "Address": {
+                    "type": "string"
+                },
+                "Age": {
+                    "type": "string"
+                },
+                "Bible": {
+                    "type": "boolean"
+                },
+                "Contact": {
+                    "type": "boolean"
+                },
+                "CultHome": {
+                    "type": "boolean"
+                },
+                "Date": {
                     "type": "integer"
+                },
+                "Evangelical": {
+                    "type": "boolean"
+                },
+                "FrequentsChurch": {
+                    "type": "boolean"
+                },
+                "NameTribe": {
+                    "type": "string"
+                },
+                "Notes": {
+                    "type": "string"
+                },
+                "PrayerRequest": {
+                    "type": "boolean"
+                },
+                "Reconciled": {
+                    "type": "boolean"
+                },
+                "StudyBible": {
+                    "type": "boolean"
+                },
+                "StudyConfimation": {
+                    "type": "boolean"
                 }
             }
         },
@@ -477,12 +800,6 @@
             "type": "object",
             "properties": {
                 "database_status": {
-                    "type": "string"
-                },
-                "server_started_at": {
-                    "type": "string"
-                },
-                "version": {
                     "type": "string"
                 }
             }

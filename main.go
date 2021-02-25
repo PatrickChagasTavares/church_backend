@@ -46,7 +46,7 @@ func main() {
 			logger.Fatal("Error ao se conectar com o database de leitura", errReader)
 		}
 
-		dbWriter.Migrator().AutoMigrate(&model.Child{})
+		dbWriter.Migrator().AutoMigrate(model.Child{}, model.DoorToDoors{})
 
 		// criação dos stores com a injeção do banco de escrita e leitura
 		stores := store.New(store.Options{

@@ -5,7 +5,7 @@ import (
 
 	"github.com/PatrickChagastavares/church_backend/model"
 	"github.com/PatrickChagastavares/church_backend/store"
-	"github.com/sirupsen/logrus"
+	"github.com/PatrickChagastavares/church_backend/utils/logger"
 )
 
 // App interface de health para implementação
@@ -30,8 +30,7 @@ func (s *appImpl) AddChildren(ctx context.Context, child model.Child) (*model.Ch
 
 	resp, respErr := s.stores.Children.AddChild(ctx, child)
 	if respErr != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.AddChildren", respErr.Error())
-
+		logger.ErrorContext(ctx, "app.children.AddChildren", respErr.Error())
 		return nil, respErr
 	}
 
@@ -42,8 +41,7 @@ func (s *appImpl) GetChild(ctx context.Context, ID int) (*model.Child, error) {
 
 	resp, respErr := s.stores.Children.GetChild(ctx, ID)
 	if respErr != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.getchild", respErr.Error())
-
+		logger.ErrorContext(ctx, "app.children.getchild", respErr.Error())
 		return nil, respErr
 	}
 
@@ -54,8 +52,7 @@ func (s *appImpl) ListChild(ctx context.Context, page, limit int) ([]*model.Chil
 
 	resp, respErr := s.stores.Children.ListChild(ctx, limit, page)
 	if respErr != nil {
-		logrus.WithContext(ctx).Error(ctx, "app.children.addchildren", respErr.Error())
-
+		logger.ErrorContext(ctx, "app.children.addchildren", respErr.Error())
 		return nil, respErr
 	}
 

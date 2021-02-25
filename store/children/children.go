@@ -43,11 +43,10 @@ func (r *storeImpl) GetChild(ctx context.Context, ID int) (*model.Child, error) 
 
 	var child model.Child
 	result := r.writer.First(&child, ID)
-	logger.Info(result.RowsAffected)
 
 	if result.Error == gorm.ErrRecordNotFound {
-		logger.ErrorContext(ctx, "store.children.getchild.rowsaffected", result.Error.Error())
-		return nil, model.NewError(http.StatusBadRequest, result.Error.Error(), map[string]int{
+		logger.ErrorContext(ctx, "store.children.getchild.ErrRecordNotFound", result.Error.Error())
+		return nil, model.NewError(http.StatusBadRequest, "Não foi encontrado informações com base no ID informado.", map[string]int{
 			"Id": ID,
 		})
 	}
