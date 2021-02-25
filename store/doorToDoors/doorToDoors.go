@@ -30,7 +30,7 @@ func (s *storeImpl) AddDoorToDoors(ctx context.Context, door model.DoorToDoors) 
 
 	result := s.writer.Create(&door)
 	if result.Error != nil {
-		logger.ErrorContext(ctx, "store.children.addchild", result.Error.Error())
+		logger.ErrorContext(ctx, "store.doorToDoors.AddDoorToDoors", result.Error.Error())
 		return nil, model.NewError(http.StatusInternalServerError, result.Error.Error(), door)
 	}
 	return &door, nil

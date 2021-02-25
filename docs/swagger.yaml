@@ -65,6 +65,64 @@ definitions:
     type: object
   model.Response:
     type: object
+  model.Social:
+    properties:
+      AcceptChrist:
+        type: boolean
+      AcceptVisit:
+        type: boolean
+      Address:
+        type: string
+      Aesthetics:
+        type: boolean
+      Age:
+        type: string
+      Bible:
+        type: boolean
+      Contact:
+        type: boolean
+      CultHome:
+        type: boolean
+      CuttingHair:
+        type: boolean
+      Date:
+        type: integer
+      Evangelical:
+        type: boolean
+      Eyebrow:
+        type: boolean
+      FrequentsChurch:
+        type: boolean
+      Glucose:
+        type: boolean
+      Hairstyle:
+        type: boolean
+      Medical:
+        type: boolean
+      Nail:
+        type: boolean
+      NameTribe:
+        type: string
+      Notes:
+        type: string
+      Optician:
+        type: boolean
+      PrayerRequest:
+        type: boolean
+      Pressure:
+        type: boolean
+      Reconciled:
+        type: boolean
+      StudyBible:
+        type: boolean
+      StudyConfimation:
+        type: boolean
+    required:
+    - Address
+    - Age
+    - Date
+    - NameTribe
+    type: object
 info:
   contact: {}
   license: {}
@@ -121,7 +179,7 @@ paths:
       security:
       - ApiKeyAuth: []
       tags:
-      - children
+      - Children
   /v1/children/get/{id}:
     get:
       consumes:
@@ -166,7 +224,7 @@ paths:
       security:
       - ApiKeyAuth: []
       tags:
-      - children
+      - Children
   /v1/children/list:
     get:
       consumes:
@@ -218,7 +276,7 @@ paths:
       security:
       - ApiKeyAuth: []
       tags:
-      - children
+      - Children
   /v1/doortodoors/create:
     post:
       consumes:
@@ -446,6 +504,151 @@ paths:
       - ApiKeyAuth: []
       tags:
       - health
+  /v1/social/create:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Essa rota é privada com o token valido (Bearer)
+        Os campos Date, NameTribe, Address e Age são obrigatorios
+      parameters:
+      - description: Social
+        in: body
+        name: social
+        required: true
+        schema:
+          $ref: '#/definitions/model.Social'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Social'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Social
+  /v1/social/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Social'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Social
+  /v1/social/list:
+    get:
+      consumes:
+      - application/json
+      description: Essa rota é privada com o token valido (Bearer)
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Social'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/model.Error'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Social
 securityDefinitions:
   ApiKeyAuth:
     in: header

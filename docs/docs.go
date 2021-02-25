@@ -40,7 +40,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "children"
+                    "Children"
                 ],
                 "parameters": [
                     {
@@ -138,7 +138,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "children"
+                    "Children"
                 ],
                 "parameters": [
                     {
@@ -222,7 +222,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "children"
+                    "Children"
                 ],
                 "parameters": [
                     {
@@ -725,6 +725,270 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/v1/social/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Essa rota é privada com o token valido (Bearer)\nOs campos Date, NameTribe, Address e Age são obrigatorios",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social"
+                ],
+                "parameters": [
+                    {
+                        "description": "Social",
+                        "name": "social",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Social"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.Social"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/social/get/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Essa rota é privada com o token valido (Bearer)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.Social"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/social/list": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Essa rota é privada com o token valido (Bearer)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Social"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.Social"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/model.Error"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -826,6 +1090,92 @@ var doc = `{
         },
         "model.Response": {
             "type": "object"
+        },
+        "model.Social": {
+            "type": "object",
+            "required": [
+                "Address",
+                "Age",
+                "Date",
+                "NameTribe"
+            ],
+            "properties": {
+                "AcceptChrist": {
+                    "type": "boolean"
+                },
+                "AcceptVisit": {
+                    "type": "boolean"
+                },
+                "Address": {
+                    "type": "string"
+                },
+                "Aesthetics": {
+                    "type": "boolean"
+                },
+                "Age": {
+                    "type": "string"
+                },
+                "Bible": {
+                    "type": "boolean"
+                },
+                "Contact": {
+                    "type": "boolean"
+                },
+                "CultHome": {
+                    "type": "boolean"
+                },
+                "CuttingHair": {
+                    "type": "boolean"
+                },
+                "Date": {
+                    "type": "integer"
+                },
+                "Evangelical": {
+                    "type": "boolean"
+                },
+                "Eyebrow": {
+                    "type": "boolean"
+                },
+                "FrequentsChurch": {
+                    "type": "boolean"
+                },
+                "Glucose": {
+                    "type": "boolean"
+                },
+                "Hairstyle": {
+                    "type": "boolean"
+                },
+                "Medical": {
+                    "type": "boolean"
+                },
+                "Nail": {
+                    "type": "boolean"
+                },
+                "NameTribe": {
+                    "type": "string"
+                },
+                "Notes": {
+                    "type": "string"
+                },
+                "Optician": {
+                    "type": "boolean"
+                },
+                "PrayerRequest": {
+                    "type": "boolean"
+                },
+                "Pressure": {
+                    "type": "boolean"
+                },
+                "Reconciled": {
+                    "type": "boolean"
+                },
+                "StudyBible": {
+                    "type": "boolean"
+                },
+                "StudyConfimation": {
+                    "type": "boolean"
+                }
+            }
         }
     },
     "securityDefinitions": {
