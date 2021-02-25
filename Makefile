@@ -1,4 +1,4 @@
-.PHONY: run run-watch docker-up docker-down docs
+.PHONY: run watch docker-up docker-down mocks test coover docs
 
 # Styles
 red=\033[31m
@@ -34,3 +34,18 @@ run-watch:
 # comandos para documentação
 docs:
 	swag init
+
+# comandos para teste
+test:
+	go test -v -p 1 -cover -failfast ${FOLDER_TEST}  -coverprofile=coverage.out
+	@go tool cover -func coverage.out | awk 'END{print sprintf("coverage: %s", $$3)}'
+
+test-cover: test
+	go tool cover -html=coverage.out
+
+mocks: 
+	rm -rf ./mocks
+	mkdir mocks
+
+	mockgen -source=./store/health/health.go -destination=./mocks/health_mock.go -package=mocks -mock_names=Store=MockHealthStore
+	mockgen -source=./store/children/children.go -destination=./mocks/children_mock.go -package=mocks -mock_names=Store=MockChildrenStore
