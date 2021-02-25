@@ -9,7 +9,7 @@ import (
 	"github.com/PatrickChagastavares/church_backend/model"
 	"github.com/PatrickChagastavares/church_backend/store"
 	"github.com/PatrickChagastavares/church_backend/utils/validator"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
 	"github.com/labstack/echo/v4"
@@ -35,13 +35,13 @@ func main() {
 		e.Use(emiddleware.Recover())
 		e.Use(emiddleware.RequestID())
 
-		dbReader, errReader := gorm.Open(mysql.Open(c.GetString("database.reader.url")), &gorm.Config{})
+		dbReader, errReader := gorm.Open(postgres.Open(c.GetString("database.reader.url")), &gorm.Config{})
 
 		if errReader != nil {
 			logger.Fatal("Error ao se conectar com o database de leitura", errReader)
 		}
 
-		dbWriter, errWriter := gorm.Open(mysql.Open(c.GetString("database.writer.url")), &gorm.Config{})
+		dbWriter, errWriter := gorm.Open(postgres.Open(c.GetString("database.writer.url")), &gorm.Config{})
 		if errWriter != nil {
 			logger.Fatal("Error ao se conectar com o database de leitura", errReader)
 		}

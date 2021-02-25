@@ -23,5 +23,6 @@ require (
 	golang.org/x/sys v0.0.0-20210220050731-9a76102bfb43 // indirect
 	golang.org/x/tools v0.1.0 // indirect
 	gorm.io/driver/mysql v1.0.4
+	gorm.io/driver/postgres v1.0.8 // indirect
 	gorm.io/gorm v1.20.12
 )
