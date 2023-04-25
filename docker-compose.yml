@@ -1,19 +1,21 @@
 version: '3.7'
 
+networks:
+  church-network:
+    driver: bridge
+
 services: 
   db:
-    image: postgres
+    image: postgres:latest
+    networks:
+      - church-network
     environment:
-      POSTGRES_PASSWORD: "Postgres2019!"
+      POSTGRES_DB: gorm
+      POSTGRES_USER: gorm
+      POSTGRES_PASSWORD: gorm
     ports:
-      - "5432:5432"
+      - 5432:5432
+      - 9920:9920
     expose:
-      # Opens port 5432 on the container
-      - '5432'
+      - 5432
       # Where our data will be persisted
-    volumes:
-      - postgres-db:/var/lib/mysql
-
-# # Names our volume
-volumes:
-  postgres-db:
